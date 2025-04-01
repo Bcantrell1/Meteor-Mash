@@ -42,12 +42,16 @@ def main():
         updatable.update(dt)
 
         for meteor in meteors:
+            for shot in shots:
+                if meteor.collides_with(shot):
+                    shot.kill()
+                    meteor.split()
             if meteor.collides_with(player):
                 print("Game over!")
                 sys.exit()
 
         # Paint Screen
-        screen.fill("black")
+        screen.fill("#343a40")
 
         for obj in drawable:
             obj.draw(screen)
