@@ -1,6 +1,9 @@
 import pygame
+import sys
 from constants import *
 from player import Player
+from meteor import Meteor
+from meteorfield import MeteorField
 
 def main():
     print("Starting Asteroids!")
@@ -12,8 +15,12 @@ def main():
 
     updatable = pygame.sprite.Group()
     drawable = pygame.sprite.Group()
+    meteors = pygame.sprite.Group()
 
     Player.containers = (updatable, drawable)
+    Meteor.containers = (meteors, updatable, drawable)
+    MeteorField.containers = updatable
+    meteor_field = MeteorField()
 
     player = Player(SCREEN_WIDTH/2, SCREEN_HEIGHT/2)
 
@@ -29,6 +36,11 @@ def main():
                 running = False
 
         updatable.update(dt)
+
+        for meteor in meteors:
+            if meteor.collides_with(player):
+                print("Game over!")
+                sys.exit()
 
         # Paint Screen
         screen.fill("black")
