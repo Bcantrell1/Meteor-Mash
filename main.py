@@ -4,9 +4,10 @@ from constants import *
 from player import Player
 from meteor import Meteor
 from meteorfield import MeteorField
+from shot import Shot
 
 def main():
-    print("Starting Asteroids!")
+    print("Starting Meteors!")
     print(f"Screen width: {SCREEN_WIDTH}")
     print(f"Screen height: {SCREEN_HEIGHT}")
 
@@ -16,12 +17,15 @@ def main():
     updatable = pygame.sprite.Group()
     drawable = pygame.sprite.Group()
     meteors = pygame.sprite.Group()
+    shots = pygame.sprite.Group()
 
-    Player.containers = (updatable, drawable)
+    Shot.containers = (shots, updatable, drawable)
+
     Meteor.containers = (meteors, updatable, drawable)
     MeteorField.containers = updatable
     meteor_field = MeteorField()
 
+    Player.containers = (updatable, drawable)
     player = Player(SCREEN_WIDTH/2, SCREEN_HEIGHT/2)
 
     dt = 0
